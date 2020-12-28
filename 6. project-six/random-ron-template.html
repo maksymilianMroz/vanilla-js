@@ -17,24 +17,34 @@
 
     <h1>Random Ron</h1>
 
-    <blockquote></blockquote>
+    <blockquote id="box"></blockquote>
 
     <p>
-        <button>More Ron</button>
+        <button id="button">More Ron</button>
     </p>
 
     <script>
-        fetch('https://ron-swanson-quotes.herokuapp.com/v2/quotes').then(function(response) {
-            if (response.ok) {
-                return response.json;
-            } else {
-                return Promise.reject(response);
-            }
-        }).then(function(data) {
-            console.log(data);
-        }).catch(function(err) {
-            console.warn('Something went wrog... ' + err);
-        })
+        var button = document.querySelector('#button');
+        var box  = document.querySelector('#box')
+
+        function showQuote() {
+            fetch('https://ron-swanson-quotes.herokuapp.com/v2/quotes').then(function(response) {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    return Promise.reject(response);
+                }
+            }).then(function(data) {
+                box.textContent = data[0];
+            }).catch(function(error) {
+                console.warn('Something went wrog... ' + error);
+            })
+        }
+
+        showQuote();
+
+        button.addEventListener('click', showQuote);
+       
 
     </script>
 </body>
