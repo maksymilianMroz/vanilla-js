@@ -31,7 +31,14 @@
 	<p>You've written <strong><span id="character-count">0</span> characters</strong>.</p>
 
 	<script>
-		// Your code goes here...
+		
+        let counter = document.querySelector('#character-count');
+        let textBox = document.querySelector('#text');
+
+        textBox.addEventListener('input', (e) => {
+            counter.textContent = e.target.value.length;
+        });
+
 	</script>
 </body>
 </html>
