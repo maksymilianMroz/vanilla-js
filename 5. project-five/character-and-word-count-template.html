@@ -31,7 +31,19 @@
 	<p>You've written <strong><span id="word-count">0</span> words</strong> and <strong><span id="character-count">0</span> characters</strong>.</p>
 
 	<script>
-		// Your code goes here...
+        
+        let textBox = document.querySelector('#text');
+        let counterW = document.querySelector('#word-count');
+        let counterCh = document.querySelector('#character-count');
+        let words = [];
+
+        textBox.addEventListener('input', () => {
+            counterCh.textContent = textBox.value.length;
+
+            words = textBox.value.split(' ');
+            counterW.textContent = words.length;
+        });
+        
 	</script>
 </body>
 </html>
