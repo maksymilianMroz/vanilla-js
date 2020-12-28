@@ -40,7 +40,9 @@
         textBox.addEventListener('input', () => {
             counterCh.textContent = textBox.value.length;
 
-            words = textBox.value.split(/[\n\r\s]+/g);
+            words = textBox.value.split(/[\n\r\s]+/g).filter((item) => {
+                return item.length > 0;
+            });
             counterW.textContent = words.length;
         });
         
