@@ -18,7 +18,19 @@
 	<div id="app"></div>
 
 	<script>
-		// Your code goes here...
+
+        fetch('https://api.nytimes.com/svc/topstories/v2/home.json?api-key=cKmkFz6qZyLD5qkAHnm3k2765QrbPRJh').than(response, () => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                return Promise.reject(response);
+            }
+        }).than(data, () => {
+            console.log(data);
+        }).catch(err, () => {
+            console.log('nope, cause ' + err);
+        })
+
 	</script>
 </body>
 </html>
