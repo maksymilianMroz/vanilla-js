@@ -21,7 +21,7 @@
 
     <script>
 
-        fetch('https://api.nytimes.com/svc/topstories/v2/home.json?api-key=cKmkFz6qZyLD5qkAHnm3k2765QrbPRJh').then(function (response) {
+        fetch('https://api.nytimes.com/svc/topstories/v2/home.json?api-key=cKmkFz6qZyLD5qkAHnm3k2765QrbPRJh').then((response) => {
             if (response.ok) {
                 return response.json();
             } else {
