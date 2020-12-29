@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<title>What to read today - sanitizing data</title>
 
@@ -19,6 +20,7 @@
 		}
 	</style>
 </head>
+
 <body>
 
 	<h1>What to read today - sanitizing data</h1>
@@ -36,6 +38,12 @@
 		var sections = ['technology', 'science', 'magazine'];
 		var numberOfArticles = 3;
 
+		var sanitizeHTML = function (str) {
+			return str.replace(/[^\w. ]/gi, function (c) {
+				return '&#' + c.charCodeAt(0) + ';';
+			});
+		};
+
 		/**
 		 * Render articles into the DOM
 		 * @param  {Array} articles The articles to render
@@ -48,9 +56,9 @@
 			app.innerHTML += '<h2>' + section + '</h2>' + articles.map(function (article) {
 				var html =
 					'<article>' +
-						'<h3><a href="' + article.url + '">' + article.title + '</a></h3>' +
-						'<p>' + article.byline + '</p>' +
-						'<p>' + article.abstract + '</p>' +
+					'<h3><a href="' + article.url + '">' + article.title + '</a></h3>' +
+					'<p>' + article.byline + '</p>' +
+					'<p>' + article.abstract + '</p>' +
 					'</article>';
 				return html;
 			}).join('');
@@ -96,4 +104,5 @@
 		});
 	</script>
 </body>
+
 </html>
