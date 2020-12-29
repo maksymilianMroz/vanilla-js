@@ -35,12 +35,12 @@
          * Render articles into the DOM
          * @param  {Array} articles The articles to render
          */
-        var render = function (articles) {
+        var render = function (articles, section) {
             
             // Create a new array of markup strings with array.map(), then
             // Combine them into one string with array.join(), then
             // Insert them into the DOM with innerHTML
-            app.innerHTML = articles.map(function (article) {
+            app.innerHTML += '<h2>' + section + '</h2>' + articles.map(function (article) {
                 var html =
                     '<article>' +
                     '<h2><a href="' + article.url + '">' + article.title + '</a></h2>' +
@@ -52,6 +52,10 @@
 
         };
 
+        var getFirstFew = function (articles) {
+			return articles.slice(0, 5);
+		};
+
         // Get articles
         var getArticles = (category) => {
             fetch('https://api.nytimes.com/svc/topstories/v2/'+ category +'.json?api-key=' + apiKey).then(function (response) {
@@ -61,9 +65,10 @@
                     return Promise.reject(response);
                 }
             }).then(function (data) {
-                console.log(data.results.slice(0, 5));
-                // Render them into the DOM
-                render(data.results);
+
+                var firstFew = getFirstFew(data.results);
+
+				render(firstFew, category);
 
             }).catch(function (error) {
                 console.log('Something went wrong:', error);
