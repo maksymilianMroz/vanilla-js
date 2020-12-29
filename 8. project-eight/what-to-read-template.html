@@ -1,36 +1,39 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>What to read today</title>
 
-	<style type="text/css">
-		body {
-			margin: 1em auto;
-			max-width: 40em;
-			width: 88%;
-		}
-	</style>
+<head>
+    <title>What to read today</title>
+
+    <style type="text/css">
+        body {
+            margin: 1em auto;
+            max-width: 40em;
+            width: 88%;
+        }
+    </style>
 </head>
+
 <body>
 
-	<h1>What to read today</h1>
+    <h1>What to read today</h1>
 
-	<div id="app"></div>
+    <div id="app"></div>
 
-	<script>
+    <script>
 
-        fetch('https://api.nytimes.com/svc/topstories/v2/home.json?api-key=cKmkFz6qZyLD5qkAHnm3k2765QrbPRJh').than(response, () => {
+        fetch('https://api.nytimes.com/svc/topstories/v2/home.json?api-key=cKmkFz6qZyLD5qkAHnm3k2765QrbPRJh').then(function (response) {
             if (response.ok) {
                 return response.json();
             } else {
                 return Promise.reject(response);
             }
-        }).than(data, () => {
+        }).then((data) => {
             console.log(data);
-        }).catch(err, () => {
+        }).catch((err) => {
             console.log('nope, cause ' + err);
         })
 
-	</script>
+    </script>
 </body>
+
 </html>
