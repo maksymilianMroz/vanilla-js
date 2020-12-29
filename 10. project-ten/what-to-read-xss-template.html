@@ -56,9 +56,9 @@
 			app.innerHTML += '<h2>' + section + '</h2>' + articles.map(function (article) {
 				var html =
 					'<article>' +
-					'<h3><a href="' + article.url + '">' + article.title + '</a></h3>' +
-					'<p>' + article.byline + '</p>' +
-					'<p>' + article.abstract + '</p>' +
+					'<h3><a href="' + sanitizeHTML(article.url) + '">' + sanitizeHTML(article.title) + '</a></h3>' +
+					'<p>' + sanitizeHTML(article.byline) + '</p>' +
+					'<p>' + sanitizeHTML(article.abstract) + '</p>' +
 					'</article>';
 				return html;
 			}).join('');
