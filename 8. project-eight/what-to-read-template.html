@@ -28,7 +28,16 @@
                 return Promise.reject(response);
             }
         }).then((data) => {
-            console.log(data);
+            var app = document.querySelector('#app');
+            var posts = data.results;
+            console.log(posts);
+            
+            app.innerHTML = '<ul>' +
+                posts.map(function (post) {
+                    return '<li>'+ '<span style="color:#801e1e;"><b>Section:</b> ' + post.section + ' </span>' + post.title + '</li>';
+                }).join('');
+            + '</ul>'
+
         }).catch((err) => {
             console.log('nope, cause ' + err);
         })
