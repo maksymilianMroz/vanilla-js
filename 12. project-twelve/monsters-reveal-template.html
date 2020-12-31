@@ -23,6 +23,18 @@
         .grid {
             min-height: 6em;
             padding: 1em;
+            position: relative;
+        }
+
+        .custom-door {
+            position: absolute;
+            z-index: 99999;
+            background: #fff;
+            width: auto;
+            height: auto;
+            left: 0;
+            top: 0;
+            margin: 1em;
         }
 
         /**
@@ -58,7 +70,7 @@
     <script>
         // The monsters and socks
         let app = document.querySelector('#app');
-        
+
         let monsters = [
             'monster1',
             'monster2',
@@ -100,8 +112,9 @@
             app.innerHTML = '<div class="row">' +
                 monsters.map((monster) => {
                     return html =
-                        '<div class="grid">' +
-                        '<img src="images/' + monster + '.svg" alt="'+ monster +'"/>' +
+                        '<div class="grid" data-monster-behind="' + monster + '">' +
+                        '<img class="custom-door" src="images/door.svg" alt="door" />' +
+                        '<img src="images/' + monster + '.svg" alt="' + monster + '"/>' +
                         '</div>';
                 }).join('');
             + '</div>';
