@@ -23,6 +23,27 @@
         .grid {
             min-height: 6em;
             padding: 1em;
+            position: relative;
+        }
+
+        .custom-door {
+            position: absolute;
+            z-index: 99999;
+            background: #fff;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            margin: 1em;
+        }
+
+        .custom-game-over {
+            width: 100%;
+            height: 700px;
+        }
+
+        .hide-door {
+            display: none;
         }
 
         /**
@@ -58,7 +79,7 @@
     <script>
         // The monsters and socks
         let app = document.querySelector('#app');
-        
+
         let monsters = [
             'monster1',
             'monster2',
@@ -95,25 +116,53 @@
             return array;
 
         };
+        shuffle(monsters);
 
         let render = (monsters) => {
             app.innerHTML = '<div class="row">' +
                 monsters.map((monster) => {
                     return html =
-                        '<div class="grid">' +
-                        '<img src="images/' + monster + '.svg" alt="'+ monster +'"/>' +
+                        '<div class="grid" >' +
+                        '<img class="custom-door" src="images/door.svg" alt="door" data-monster="' + monster + '"/>' +
+                        '<img src="images/' + monster + '.svg" alt="' + monster + '"/>' +
                         '</div>';
                 }).join('');
             + '</div>';
 
         };
+        render(monsters);
 
-        let doStuff = (array) => {
-            shuffle(array);
-            render(array);
-        };
+            
+            
+       
 
-        doStuff(monsters);
+        var grid = Array.prototype.slice.call(document.querySelectorAll('.grid'));
+        let counter = 0;
+
+        grid.forEach(element => {
+            element.addEventListener('click', (e) => {
+                if (e.target.dataset.monster == 'sock') {
+                    app.innerHTML = '<h1>PRZEGRANA! ZARA NOWA GIERA!</h1>';
+                    counter = 0;
+                    setTimeout(() => {
+                        location.reload();
+                    }, 1500);
+                } else {
+                    if (e.target.classList.contains("custom-door")) {
+                        e.target.classList.add('hide-door');
+                        counter++;
+                    }
+                    if (counter == 11) {
+                        app.innerHTML = '<h1>WYGRAŁEŚ! ALE ZARAZ ZACZNIE SIĘ NOWA GRA!</h1>';
+                        setTimeout(() => {
+                            location.reload();
+                        }, 1500);
+                    }
+                }
+
+
+            });
+        });
 
 
     </script>
