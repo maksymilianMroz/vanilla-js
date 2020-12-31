@@ -37,6 +37,11 @@
             margin: 1em;
         }
 
+        .custom-game-over {
+            width: 100%;
+            height: 700px;
+        }
+
         /**
 		 * Make sure images scale
 		 */
@@ -112,8 +117,8 @@
             app.innerHTML = '<div class="row">' +
                 monsters.map((monster) => {
                     return html =
-                        '<div class="grid" data-monster-behind="' + monster + '">' +
-                        '<img class="custom-door" src="images/door.svg" alt="door" />' +
+                        '<div class="grid" >' +
+                        '<img class="custom-door" src="images/door.svg" alt="door" data-monster="' + monster + '"/>' +
                         '<img src="images/' + monster + '.svg" alt="' + monster + '"/>' +
                         '</div>';
                 }).join('');
@@ -127,6 +132,16 @@
         };
 
         doStuff(monsters);
+
+        var grid = Array.prototype.slice.call(document.querySelectorAll('.grid'));
+
+        grid.forEach(element => {
+            element.addEventListener('click', (e) => {
+                if (e.target.dataset.monster == 'sock') {
+                    app.innerHTML = '<img class="custom-game-over" src="images/sock.svg" alt="SKARPETA"/>'
+                }
+            });
+        });
 
 
     </script>
