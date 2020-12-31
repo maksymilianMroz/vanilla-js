@@ -1,78 +1,94 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<title>Monsters!</title>
+    <title>Monsters!</title>
 
-	<style type="text/css">
-		body {
-			margin: 1em auto;
-			max-width: 40em;
-			width: 88%;
-		}
+    <style type="text/css">
+        body {
+            margin: 1em auto;
+            max-width: 40em;
+            width: 88%;
+        }
 
-		/**
+        /**
 		 * A simple grid layout
 		 */
-		.row {
-			display: grid;
-			grid-template-columns: auto auto auto;
-			text-align: center;
-		}
+        .row {
+            display: grid;
+            grid-template-columns: auto auto auto;
+            text-align: center;
+        }
 
-		.grid {
-			min-height: 6em;
-			padding: 1em;
-		}
+        .grid {
+            min-height: 6em;
+            padding: 1em;
+        }
 
-		/**
+        /**
 		 * Make sure images scale
 		 */
-		img {
-			height: auto;
-			max-width: 100%;
-		}
-	</style>
+        img {
+            height: auto;
+            max-width: 100%;
+        }
+    </style>
 </head>
+
 <body>
 
-	<h1>Monsters!</h1>
+    <h1>Monsters!</h1>
 
-	<div id="app">
+    <div id="app"></div>
 
-        <div class="row">
-            <div class="grid">1</div>
-            <div class="grid">2</div>
-            <div class="grid">3</div>
-            <div class="grid">4</div>
-            <div class="grid">5</div>
-            <div class="grid">6</div>
-        </div>
+    <footer>
+        <hr>
+        <p class="text-small text-muted">Icons by <a href="https://thenounproject.com/term/door/311732/">Jamie
+                Dickinson</a>, <a href="https://thenounproject.com/term/monster/184225/">Nicky Knicky</a>, <a
+                href="https://thenounproject.com/term/monster/1510400/">Alvaro Cabrera</a>, <a
+                href="https://thenounproject.com/term/monster/28460/">Eliricon</a>, <a
+                href="https://thenounproject.com/term/monster/82823/">April Yang</a>, <a
+                href="https://thenounproject.com/term/monster/1062009/">tk66</a>, <a
+                href="https://thenounproject.com/term/monster/24990/">Alex WaZa</a>, <a
+                href="https://thenounproject.com/term/monster/37212/">Husein Aziz</a>, <a
+                href="https://thenounproject.com/term/monster/2236082">iconcheese</a>, and <a
+                href="https://thenounproject.com/term/socks/38451/">Yazmin Alanis</a>.</p>
+    </footer>
 
-    </div>
+    <script>
+        // The monsters and socks
+        var monsters = [
+            'monster1',
+            'monster2',
+            'monster3',
+            'monster4',
+            'monster5',
+            'monster6',
+            'monster7',
+            'monster8',
+            'monster9',
+            'monster10',
+            'monster11',
+            'sock'
+        ];
 
-	<footer>
-		<hr>
-		<p class="text-small text-muted">Icons by <a href="https://thenounproject.com/term/door/311732/">Jamie Dickinson</a>, <a href="https://thenounproject.com/term/monster/184225/">Nicky Knicky</a>, <a href="https://thenounproject.com/term/monster/1510400/">Alvaro Cabrera</a>, <a href="https://thenounproject.com/term/monster/28460/">Eliricon</a>, <a href="https://thenounproject.com/term/monster/82823/">April Yang</a>, <a href="https://thenounproject.com/term/monster/1062009/">tk66</a>, <a href="https://thenounproject.com/term/monster/24990/">Alex WaZa</a>, <a href="https://thenounproject.com/term/monster/37212/">Husein Aziz</a>, <a href="https://thenounproject.com/term/monster/2236082">iconcheese</a>, and <a href="https://thenounproject.com/term/socks/38451/">Yazmin Alanis</a>.</p>
-	</footer>
+        var app = document.querySelector('#app');
 
-	<script>
-		// The monsters and socks
-		var monsters = [
-			'monster1',
-			'monster2',
-			'monster3',
-			'monster4',
-			'monster5',
-			'monster6',
-			'monster7',
-			'monster8',
-			'monster9',
-			'monster10',
-			'monster11',
-			'sock'
-		];
+        var render = (monsters) => {
+            app.innerHTML += '<div class="row">' +
+                monsters.map((monster) => {
+                    var html =
+                        '<div class="grid">' +
+                        '<img src="images/' + monster + '.svg"/>' +
+                        '</div>';
+                        return html;
+                }).join('');
+                + '</div>';
+            
+        };
+        render(monsters);
 
-		// Your code goes here...
-	</script>
+    </script>
 </body>
+
 </html>
