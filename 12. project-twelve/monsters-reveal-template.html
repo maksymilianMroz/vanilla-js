@@ -42,6 +42,10 @@
             height: 700px;
         }
 
+        .hide-door {
+            display: none;
+        }
+
         /**
 		 * Make sure images scale
 		 */
@@ -134,12 +138,30 @@
         doStuff(monsters);
 
         var grid = Array.prototype.slice.call(document.querySelectorAll('.grid'));
+        let counter = 0;
 
         grid.forEach(element => {
             element.addEventListener('click', (e) => {
                 if (e.target.dataset.monster == 'sock') {
-                    app.innerHTML = '<img class="custom-game-over" src="images/sock.svg" alt="SKARPETA"/>'
+                    app.innerHTML = '<h1>PRZEGRANA! ZARA NOWA GIERA!</h1>';
+                    counter = 0;
+                    setTimeout(() => {
+                        location.reload();
+                    }, 1500);
+                } else {
+                    if (e.target.classList.contains("custom-door")) {
+                        e.target.classList.add('hide-door');
+                        counter++;
+                    }
+                    if (counter == 11) {
+                        app.innerHTML = '<h1>WYGRAŁEŚ! ALE ZARAZ ZACZNIE SIĘ NOWA GRA!</h1>';
+                        setTimeout(() => {
+                            location.reload();
+                        }, 1500);
+                    }
                 }
+
+
             });
         });
 
