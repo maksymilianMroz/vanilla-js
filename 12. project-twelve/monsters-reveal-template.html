@@ -116,6 +116,7 @@
             return array;
 
         };
+        shuffle(monsters);
 
         let render = (monsters) => {
             app.innerHTML = '<div class="row">' +
@@ -129,13 +130,11 @@
             + '</div>';
 
         };
+        render(monsters);
 
-        let doStuff = (array) => {
-            shuffle(array);
-            render(array);
-        };
-
-        doStuff(monsters);
+            
+            
+       
 
         var grid = Array.prototype.slice.call(document.querySelectorAll('.grid'));
         let counter = 0;
