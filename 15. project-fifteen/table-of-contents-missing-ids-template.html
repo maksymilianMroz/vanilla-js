@@ -110,7 +110,7 @@
 
         Array.prototype.slice.call(document.querySelectorAll('h2, h3, h4')).forEach(elem => {
             if (elem.id == '') {
-                elem.id = elem.textContent.toLowerCase().replace(new RegExp(' ', 'g'), '-').replace(new RegExp("'", 'g'), '-');
+                elem.id = elem.textContent.toLowerCase().replace(new RegExp(/[^a-z0-9]+/gi, 'g'), '-');
             }
         });
 
