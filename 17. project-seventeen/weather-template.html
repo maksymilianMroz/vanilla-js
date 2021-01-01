@@ -18,7 +18,17 @@
 	<div id="app">Checking the weather near you...</div>
 
 	<script>
-		// Your code goes here...
+		fetch('https://ipapi.co/json').then((response) => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                return Promise.reject(response);
+            }
+        }).then((data) => {
+            console.log(data);
+        }).catch((err) => {
+            console.warn('emmm... something went wrong: ' + err);
+        });
 	</script>
 </body>
 </html>
