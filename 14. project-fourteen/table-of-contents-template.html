@@ -96,7 +96,15 @@
 	</footer>
 
 	<script>
-		// Your code goes here...
+        var headers = Array.prototype.slice.call(document.querySelectorAll('h2'));
+        var table = document.querySelector('#table-of-contents');
+
+        table.innerHTML = '<ol>' + headers.map((element) => {
+             return '<li><a href="#' + element.id + '">'+ element.textContent +'</a></li>'
+        }).join(''); 
+        + '</ol>'
+
+
 	</script>
 </body>
 </html>
