@@ -18,6 +18,7 @@
 	<div id="app">Checking the weather near you...</div>
 
 	<script>
+        var location;
 		fetch('https://ipapi.co/json').then((response) => {
             if (response.ok) {
                 return response.json();
@@ -25,7 +26,18 @@
                 return Promise.reject(response);
             }
         }).then((data) => {
-            console.log(data);
+            console.log(data)
+            location = data;
+
+            return fetch("https://api.weatherbit.io/v2.0/current?key=2ddb3802b4bc4e1993f58fcd8ef463ac&lat="+ data.latitude +"&lon="+ data.longitude);
+        }).then((response) => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                return Promise.reject(response);
+            }
+        }).then((weatherData) => {
+            console.log(weatherData, location);
         }).catch((err) => {
             console.warn('emmm... something went wrong: ' + err);
         });
