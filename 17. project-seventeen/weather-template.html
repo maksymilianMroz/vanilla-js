@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Weather App</title>
+
+	<style type="text/css">
+		body {
+			margin: 1em auto;
+			max-width: 30em;
+			width: 88%;
+		}
+	</style>
+</head>
+<body>
+
+	<h1>Weather App</h1>
+
+	<div id="app">Checking the weather near you...</div>
+
+	<script>
+        var app = document.querySelector('#app');
+
+        var render = (weather) => {
+            app.innerHTML = 
+            '<p>It is currently ' + weather.temp + ' degrees and ' + weather.weather.description + ' in ' + weather.city_name + '</p>';
+        }
+
+		fetch('https://ipapi.co/json').then((response) => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                return Promise.reject(response);
+            }
+        }).then((data) => { 
+            return fetch("https://api.weatherbit.io/v2.0/current?key=2ddb3802b4bc4e1993f58fcd8ef463ac&lat="+ data.latitude + "&lon=" + data.longitude);
+        }).then((response) => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                return Promise.reject(response);
+            }
+        }).then((weatherData) => {
+            console.log(weatherData);
+
+            render(weatherData.data[0]);
+        }).catch((err) => {
+            console.warn('emmm... something went wrong: ' + err);
+        });
+	</script>
+</body>
+</html>
