@@ -18,6 +18,13 @@
 	<div id="app">Checking the weather near you...</div>
 
 	<script>
+        var app = document.querySelector('#app');
+
+        var render = (weather) => {
+            app.innerHTML = 
+            '<p>It is currently ' + weather.temp + ' degrees and ' + weather.weather.description + ' in ' + weather.city_name + '</p>';
+        }
+
 		fetch('https://ipapi.co/json').then((response) => {
             if (response.ok) {
                 return response.json();
@@ -33,7 +40,9 @@
                 return Promise.reject(response);
             }
         }).then((weatherData) => {
-            console.log(weatherData, location);
+            console.log(weatherData);
+
+            render(weatherData.data[0]);
         }).catch((err) => {
             console.warn('emmm... something went wrong: ' + err);
         });
