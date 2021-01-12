@@ -34,11 +34,12 @@
 
             var defaults = {
                 apiKey: '2ddb3802b4bc4e1993f58fcd8ef463ac',
-                selector: 'h2'
+                selector: 'h2',
+                convertTemp: false
             }
 
             // Store the weather API key to a variable for easier configuration
-            
+
 
             // Get the #app element
             var app = document.querySelector('#app');
@@ -65,7 +66,11 @@
              * @return {Number}      The temperature in fahrenheit
              */
             var fToC = function (temp) {
-                return (parseFloat(temp) * 9 / 5) + 32;
+                if (defaults.convertTemp) {
+                    return (parseFloat(temp) * 9 / 5) + 32;
+                }
+
+                return temp;
             };
 
             /**
@@ -74,10 +79,10 @@
              */
             var renderWeather = function (weather) {
                 app.innerHTML =
-                    '<'+defaults.selector+'>' +
+                    '<' + defaults.selector + '>' +
                     '<img src="https://www.weatherbit.io/static/img/icons/' + weather.weather.icon + '.png">' +
-                    '</'+defaults.selector+'>' +
-                    '<'+defaults.selector+'>It is currently ' + fToC(sanitizeHTML(weather.temp)) + ' degrees and ' + sanitizeHTML(weather.weather.description).toLowerCase() + ' in ' + sanitizeHTML(weather.city_name) + ', ' + sanitizeHTML(weather.state_code) + '.</'+defaults.selector+'>';
+                    '</' + defaults.selector + '>' +
+                    '<' + defaults.selector + '>It is currently ' + fToC(sanitizeHTML(weather.temp)) + ' degrees and ' + sanitizeHTML(weather.weather.description).toLowerCase() + ' in ' + sanitizeHTML(weather.city_name) + ', ' + sanitizeHTML(weather.state_code) + '.</' + defaults.selector + '>';
             };
 
             /**
