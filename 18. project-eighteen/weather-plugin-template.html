@@ -34,6 +34,7 @@
 
             var defaults = {
                 apiKey: '2ddb3802b4bc4e1993f58fcd8ef463ac',
+                selector: 'h2'
             }
 
             // Store the weather API key to a variable for easier configuration
@@ -73,10 +74,10 @@
              */
             var renderWeather = function (weather) {
                 app.innerHTML =
-                    '<p>' +
+                    '<'+defaults.selector+'>' +
                     '<img src="https://www.weatherbit.io/static/img/icons/' + weather.weather.icon + '.png">' +
-                    '</p>' +
-                    '<p>It is currently ' + fToC(sanitizeHTML(weather.temp)) + ' degrees and ' + sanitizeHTML(weather.weather.description).toLowerCase() + ' in ' + sanitizeHTML(weather.city_name) + ', ' + sanitizeHTML(weather.state_code) + '.</p>';
+                    '</'+defaults.selector+'>' +
+                    '<'+defaults.selector+'>It is currently ' + fToC(sanitizeHTML(weather.temp)) + ' degrees and ' + sanitizeHTML(weather.weather.description).toLowerCase() + ' in ' + sanitizeHTML(weather.city_name) + ', ' + sanitizeHTML(weather.state_code) + '.</'+defaults.selector+'>';
             };
 
             /**
