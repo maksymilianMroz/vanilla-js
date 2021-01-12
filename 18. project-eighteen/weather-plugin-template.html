@@ -30,13 +30,15 @@
         //
         // Variables
         //
-        var weatherStart = () => {
+        var weatherStart = (options) => {
 
             var defaults = {
                 apiKey: '2ddb3802b4bc4e1993f58fcd8ef463ac',
                 selector: 'h2',
                 convertTemp: false
             }
+
+            var settings = Object.assign(defaults, options)
 
             // Store the weather API key to a variable for easier configuration
 
@@ -66,7 +68,7 @@
              * @return {Number}      The temperature in fahrenheit
              */
             var fToC = function (temp) {
-                if (defaults.convertTemp) {
+                if (settings.convertTemp) {
                     return (parseFloat(temp) * 9 / 5) + 32;
                 }
 
@@ -79,10 +81,10 @@
              */
             var renderWeather = function (weather) {
                 app.innerHTML =
-                    '<' + defaults.selector + '>' +
+                    '<' + settings.selector + '>' +
                     '<img src="https://www.weatherbit.io/static/img/icons/' + weather.weather.icon + '.png">' +
-                    '</' + defaults.selector + '>' +
-                    '<' + defaults.selector + '>It is currently ' + fToC(sanitizeHTML(weather.temp)) + ' degrees and ' + sanitizeHTML(weather.weather.description).toLowerCase() + ' in ' + sanitizeHTML(weather.city_name) + ', ' + sanitizeHTML(weather.state_code) + '.</' + defaults.selector + '>';
+                    '</' + settings.selector + '>' +
+                    '<' + settings.selector + '>It is currently ' + fToC(sanitizeHTML(weather.temp)) + ' degrees and ' + sanitizeHTML(weather.weather.description).toLowerCase() + ' in ' + sanitizeHTML(weather.city_name) + ', ' + sanitizeHTML(weather.state_code) + '.</' + settings.selector + '>';
             };
 
             /**
@@ -108,7 +110,7 @@
             }).then(function (data) {
                 // Pass data into another API request
                 // Then, return the new Promise into the stream
-                return fetch('https://api.weatherbit.io/v2.0/current?key=' + defaults.apiKey + '&lat=' + data.latitude + '&lon=' + data.longitude);
+                return fetch('https://api.weatherbit.io/v2.0/current?key=' + settings.apiKey + '&lat=' + data.latitude + '&lon=' + data.longitude);
             }).then(function (response) {
                 if (response.ok) {
                     return response.json();
@@ -123,7 +125,9 @@
             });
         }
 
-        weatherStart();
+        weatherStart({
+            convertTemp: true,
+        });
     </script>
 </body>
 
