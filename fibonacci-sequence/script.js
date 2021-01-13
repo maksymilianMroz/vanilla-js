@@ -15,11 +15,6 @@
     const fibb = (number) => {
         if (number <= 0) return console.log('Let\'s start from 1+');
         number <= 2 ? console.log(1) : fibonacci(number);
-    };
-
-    console.log(n2)
-    return n2
-    // fibb(7);
+    };  
+    fibb(7);
 })();
-
-console.log(n2)
