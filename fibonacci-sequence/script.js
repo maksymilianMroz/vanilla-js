@@ -13,7 +13,7 @@ const fibonacci = (n) => {
 
 const fibb = (number) => {
     if (number <= 0) return console.log('Let\'s start from 1+');
-    number <= 2 ? console.log(1) : console.log('nope');
+    number <= 2 ? console.log(1) : fibonacci(number);
 };
 
-fibb(0);
+fibb(7);
