@@ -21,3 +21,4 @@
 
 //Another version of fibonacci sequence - with arrays
 
+let arr = [0, 1];
