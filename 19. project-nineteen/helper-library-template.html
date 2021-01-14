@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<title>Helper Library</title>
 
@@ -21,6 +22,7 @@
 		}
 	</style>
 </head>
+
 <body>
 
 	<h1>Helper Library</h1>
@@ -34,13 +36,13 @@
 	</p>
 
 	<script>
-		
+
 		let helperLib = (() => {
 
 			let methods = {};
 
 			methods.toArray = (nodeList) => {
-				return Array.prototype.slice(nodeList);
+				return Array.prototype.slice.call(nodeList);
 			};
 
 			methods.getFirst = (selector) => {
@@ -63,8 +65,14 @@
 				});
 			};
 
+			return methods;
+
 		})();
-		
+
+		let array = helperLib.toArray(document.querySelectorAll('button'));
+		console.log(array);
+
 	</script>
 </body>
+
 </html>
