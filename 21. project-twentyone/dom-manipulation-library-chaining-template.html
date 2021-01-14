@@ -92,7 +92,8 @@
 			Constructor.prototype.addClass = function (className) {
 				this.elems.forEach(function (elem) {
 					elem.classList.add(className);
-				});
+                });
+                return this;
 			};
 
 			/**
@@ -102,7 +103,8 @@
 			Constructor.prototype.removeClass = function (className) {
 				this.elems.forEach(function (elem) {
 					elem.classList.remove(className);
-				});
+                });
+                return this;
 			};
 
 			/**
@@ -163,11 +165,10 @@
 		// $.last()
 		console.log('$.last()', btns.last());
 
-		// $.addClass()
-		btns.addClass('btn-purple');
+		// $.addClass() and $.removeClass()
+		btns.addClass('btn-purple').removeClass('btn-blue');
 
-		// $.removeClass()
-		btns.removeClass('btn-blue');
+		
 
 		// $.after()
 		btns.after('<strong style="color: rebeccapurple">Hello, world!</strong>');
