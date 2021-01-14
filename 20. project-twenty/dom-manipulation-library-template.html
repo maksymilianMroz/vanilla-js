@@ -56,6 +56,10 @@
                 return this.elements[0];
             };
 
+            Constructor.prototype.last = function() {
+                return this.elements[this.elements.length]
+            };
+
             return Constructor;
 
         })();
@@ -63,6 +67,7 @@
         let btns = new personalJquery('button');
         console.log(btns.items());
         console.log(btns.first());
+        console.log(btns.last());
 
 
         
