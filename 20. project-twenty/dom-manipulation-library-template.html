@@ -52,12 +52,19 @@
                 return Array.prototype.slice.call(this.elements);
             };
 
+            Constructor.prototype.first = function() {
+                return this.elements[0];
+            };
+
             return Constructor;
 
         })();
 
         let btns = new personalJquery('button');
         console.log(btns.items());
+        console.log(btns.first());
+
+
         
 	</script>
 </body>
