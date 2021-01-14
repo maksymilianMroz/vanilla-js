@@ -48,7 +48,7 @@
 			};
 
 			methods.getAll = (selector) => {
-				return Array.prototype.slice(document.querySelectorAll(selctor));
+				return methods.toArray(document.querySelectorAll(selctor));
 			};
 
 		})();
