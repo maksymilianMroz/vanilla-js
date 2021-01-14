@@ -34,7 +34,17 @@
 	</p>
 
 	<script>
-		// Your code goes here...
+		
+		let helperLib = (() => {
+
+			let methods = {};
+
+			methods.toArray = (nodeList) => {
+				return Array.prototype.slice(nodeList);
+			};
+
+		})();
+		
 	</script>
 </body>
 </html>
