@@ -44,13 +44,20 @@
         
         let personalJquery = (() => {
 
-            let Constructor = (selector) => {
+            let Constructor = function(selector) {
                 this.elements = document.querySelectorAll(selector);
+            };
+
+            Constructor.prototype.items = function() {
+                return Array.prototype.slice.call(this.elements);
             };
 
             return Constructor;
 
         })();
+
+        let btns = new personalJquery('button');
+        console.log(btns.items());
         
 	</script>
 </body>
