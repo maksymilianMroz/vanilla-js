@@ -60,6 +60,12 @@
                 return this.elements[this.elements.length-1]
             };
 
+            Constructor.prototype.addClass = function(className) {
+                this.items().forEach(function(element) {
+                    element.classList.add(className);
+                });
+            };
+
             return Constructor;
 
         })();
@@ -68,6 +74,7 @@
         console.log(btns.items());
         console.log(btns.first());
         console.log(btns.last());
+        btns.addClass('test-class');
 
 
         
