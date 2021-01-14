@@ -44,8 +44,8 @@
         
         let personalJquery = (() => {
 
-            let Constructor = () => {
-
+            let Constructor = (selector) => {
+                this.elements = document.querySelectorAll(selector);
             };
 
             return Constructor;
