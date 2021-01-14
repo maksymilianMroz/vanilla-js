@@ -66,6 +66,14 @@
                 });
             };
 
+            Constructor.prototype.removeClass = function(className) {
+                this.items().forEach(function(element) {
+                    element.classList.remove(className);
+                });
+            };
+
+
+
             return Constructor;
 
         })();
@@ -75,6 +83,8 @@
         console.log(btns.first());
         console.log(btns.last());
         btns.addClass('test-class');
+        btns.addClass('btn-purple');
+        btns.removeClass('btn-blue');
 
 
         
