@@ -50,7 +50,7 @@
 			};
 
 			methods.getAll = (selector) => {
-				return methods.toArray(document.querySelectorAll(selctor));
+				return methods.toArray(document.querySelectorAll(selector));
 			};
 
 			methods.addClass = (array, className) => {
@@ -71,6 +71,15 @@
 
 		let array = helperLib.toArray(document.querySelectorAll('button'));
 		console.log(array);
+
+		let btn = helperLib.getFirst('#button-3');
+		console.log(btn);
+
+		let btns = helperLib.getAll('button');
+		console.log(btns);
+
+		helperLib.addClass(btns, 'btn-purple');
+		helperLib.removeClass(btns, 'btn-blue');
 
 	</script>
 </body>
