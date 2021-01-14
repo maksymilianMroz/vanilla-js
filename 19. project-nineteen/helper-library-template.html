@@ -51,6 +51,12 @@
 				return methods.toArray(document.querySelectorAll(selctor));
 			};
 
+			methods.addClass = (array, className) => {
+				array.forEach(element => {
+					element.classList.add(className);
+				});
+			};
+
 		})();
 		
 	</script>
