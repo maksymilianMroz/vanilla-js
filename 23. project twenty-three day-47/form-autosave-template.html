@@ -55,14 +55,27 @@
 
     <script>
 
-        let autoSave = (item) => {
-            let savedData = String(item);
+        let autoSave = (item, val) => {
+            let savedData = String(val);
             localStorage.setItem(item, savedData);
         };
 
         let autoLoad = (item) => {
-            let data = localStorage.getItem(item);
+            let data = localStorage.getItem(item.name);
+            item.value = data;
         };
+
+        let inputList = Array.prototype.slice.call(document.querySelectorAll('input, textarea'));
+
+
+        inputList.forEach(element => {
+            element.addEventListener('input', (event) => {
+                autoSave(element.name, event.target.value);
+            })
+            autoLoad(element);
+
+
+        });
 
 
     </script>
