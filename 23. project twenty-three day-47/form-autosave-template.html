@@ -55,6 +55,9 @@
 
     <script>
 
+        let inputList = Array.prototype.slice.call(document.querySelectorAll('input, textarea'));
+        let btn = document.querySelector('button');
+
         let autoSave = (item, val) => {
             let savedData = String(val);
             localStorage.setItem(item, savedData);
@@ -65,18 +68,22 @@
             item.value = data;
         };
 
-        let inputList = Array.prototype.slice.call(document.querySelectorAll('input, textarea'));
+        let clearData = () => localStorage.clear();
+
+
 
 
         inputList.forEach(element => {
+
             element.addEventListener('input', (event) => {
                 autoSave(element.name, event.target.value);
-            })
-            autoLoad(element);
+            });
 
+            autoLoad(element);
 
         });
 
+        btn.addEventListener('click', clearData);
 
     </script>
 </body>
