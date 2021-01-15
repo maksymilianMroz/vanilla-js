@@ -54,7 +54,15 @@
     </form>
 
     <script>
-		// Your code goes here...
+
+        let autoSave = (item) => {
+            let savedData = String(item);
+            localStorage.setItem(item, savedData);
+        };
+
+
+
+
     </script>
 </body>
 
