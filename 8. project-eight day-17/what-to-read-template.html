@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>What to read today</title>
+
+    <style type="text/css">
+        body {
+            margin: 1em auto;
+            max-width: 40em;
+            width: 88%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>What to read today</h1>
+
+    <div id="app"></div>
+
+    <script>
+
+        fetch('https://api.nytimes.com/svc/topstories/v2/home.json?api-key=cKmkFz6qZyLD5qkAHnm3k2765QrbPRJh').then((response) => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                return Promise.reject(response);
+            }
+        }).then((data) => {
+            var app = document.querySelector('#app');
+            var posts = data.results;
+            console.log(posts);
+            
+            app.innerHTML = '<ul>' +
+                posts.map(function (post) {
+                    return '<li>'+ '<span style="color:#801e1e;"><b>Section:</b> ' + post.section + ' </span>' + post.title + '</li>';
+                }).join('');
+            + '</ul>'
+
+        }).catch((err) => {
+            console.log('nope, cause ' + err);
+        })
+
+    </script>
+</body>
+
+</html>

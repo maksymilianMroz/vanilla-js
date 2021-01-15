@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>What to read today - multiple sections</title>
+
+    <style type="text/css">
+        body {
+            margin: 1em auto;
+            max-width: 40em;
+            width: 88%;
+        }
+
+        article {
+            margin-bottom: 3em;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>What to read today - multiple sections</h1>
+
+    <div id="app"></div>
+
+    <script>
+        // Get the app
+        var app = document.querySelector('#app');
+
+        // Store API key to a variable for easier access
+        var apiKey = 'cKmkFz6qZyLD5qkAHnm3k2765QrbPRJh';
+        var categories = ['home', 'politics', 'realestate'];
+
+        /**
+         * Render articles into the DOM
+         * @param  {Array} articles The articles to render
+         */
+        var render = function (articles, section) {
+            
+            // Create a new array of markup strings with array.map(), then
+            // Combine them into one string with array.join(), then
+            // Insert them into the DOM with innerHTML
+            app.innerHTML += '<h2>' + section + '</h2>' + articles.map(function (article) {
+                var html =
+                    '<article>' +
+                    '<h2><a href="' + article.url + '">' + article.title + '</a></h2>' +
+                    '<p>' + article.byline + '</p>' +
+                    '<p>' + article.abstract + '</p>' +
+                    '</article>';
+                return html;
+            }).join('');
+
+        };
+
+        var getFirstFew = function (articles) {
+			return articles.slice(0, 5);
+		};
+
+        // Get articles
+        var getArticles = (category) => {
+            fetch('https://api.nytimes.com/svc/topstories/v2/'+ category +'.json?api-key=' + apiKey).then(function (response) {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    return Promise.reject(response);
+                }
+            }).then(function (data) {
+
+                var firstFew = getFirstFew(data.results);
+
+				render(firstFew, category);
+
+            }).catch(function (error) {
+                console.log('Something went wrong:', error);
+            });
+        }
+
+        categories.forEach((category) => {
+            getArticles(category);
+        });
+    </script>
+</body>
+
+</html>
