@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<title>DOM Manipulation Library - Chaining</title>
 
@@ -22,6 +23,7 @@
 		}
 	</style>
 </head>
+
 <body>
 
 	<h1>DOM Manipulation Library - Chaining</h1>
@@ -92,8 +94,8 @@
 			Constructor.prototype.addClass = function (className) {
 				this.elems.forEach(function (elem) {
 					elem.classList.add(className);
-                });
-                return this;
+				});
+				return this;
 			};
 
 			/**
@@ -103,8 +105,8 @@
 			Constructor.prototype.removeClass = function (className) {
 				this.elems.forEach(function (elem) {
 					elem.classList.remove(className);
-                });
-                return this;
+				});
+				return this;
 			};
 
 			/**
@@ -168,7 +170,7 @@
 		// $.addClass() and $.removeClass()
 		btns.addClass('btn-purple').removeClass('btn-blue');
 
-		
+
 
 		// $.after()
 		btns.after('<strong style="color: rebeccapurple">Hello, world!</strong>');
@@ -177,4 +179,5 @@
 		list.append('<li>Item A</li><li>Item B</li><li>Item C</li>');
 	</script>
 </body>
+
 </html>
