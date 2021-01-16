@@ -28,8 +28,13 @@
 
         let storageID = 'pirateCache';
 
+        let renderNoArticles = () => {
+            app.innerHTML = '<p>Articles? NOPE.</p>';
+        };
+
         let renderNews = (data) => {
             if (data.articles.length < 1) {
+                renderNoArticles();
                 return;
             }
 
@@ -54,6 +59,7 @@
             }).then((data) => {
                 renderNews(data);
             }).catch(() => {
+                renderNoArticles();
                 console.log('nie wyszło')
             })
         };
