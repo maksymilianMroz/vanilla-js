@@ -24,7 +24,25 @@
 
     <script>
 
+        let app = document.querySelector('#app');
 
+        let storageID = 'pirateCache';
+
+        let fetchArticles = () => {
+            fetch('https://vanillajsacademy.com/api/pirates.json').then((response) => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    return Promise.reject(response)
+                }
+            }).then((data) => {
+                console.log(data);
+            }).catch(() => {
+                console.log('nie wyszło')
+            })
+        }
+
+        fetchArticles();
 
 
     </script>
