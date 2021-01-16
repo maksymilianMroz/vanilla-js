@@ -151,8 +151,15 @@
                 // If there's no saved data in localStorage, skip it
                 if (!saved[id]) return;
 
-                // Set the field value to the saved data in localStorage
-                field.value = saved[id];
+                if (field.type === 'checkbox') {
+                    field.checked = saved[id] === 'on' ? true : false;
+                } else if (field.type === 'radio') {
+                    field.checked = saved[id] === field.value ? true : false;
+                } else {
+                    field.value = saved[id];
+                }
+
+
 
             });
 
@@ -175,8 +182,14 @@
             var saved = localStorage.getItem(storageID);
             saved = saved ? JSON.parse(saved) : {};
 
-            // Add the field to the localStorage object
-            saved[id] = event.target.value;
+
+            if (event.target.type === 'checkbox') {
+                saved[id] = event.target.checked ? 'on' : 'off';
+            } else {
+                saved[id] = event.target.value;
+            }
+
+
 
             // Save the object back to localStorage
             localStorage.setItem(storageID, JSON.stringify(saved));
