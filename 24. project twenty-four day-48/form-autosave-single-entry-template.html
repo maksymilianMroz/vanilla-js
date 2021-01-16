@@ -89,6 +89,11 @@
          */
         var loadData = function () {
 
+            // Get localStorage data
+            var saved = localStorage.getItem(storageID);
+            if (!saved) return;
+            saved = JSON.parse(saved);
+
             // Get all of the form fields
             var fields = document.querySelectorAll('#save-me input, #save-me textarea');
 
@@ -99,34 +104,11 @@
                 var id = getID(field);
                 if (!id) return;
 
-                // If there's no saved value in localStorage, skip it
-                var saved = localStorage.getItem(storagePrefix + id);
-                if (!saved) return;
+                // If there's no saved data in localStorage, skip it
+                if (!saved[id]) return;
 
                 // Set the field value to the saved data in localStorage
-                field.value = saved;
-
-            });
-
-        };
-
-        /**
-         * Delete saved data from localStorage
-         */
-        var clearData = function () {
-
-            // Get all of the form fields
-            var fields = document.querySelectorAll('#save-me input, #save-me textarea');
-
-            // Loop through each field and load any saved data in localStorage
-            Array.prototype.slice.call(fields).forEach(function (field) {
-
-                // If the field has no usable ID, skip it
-                var id = getID(field);
-                if (!id) return;
-
-                // Remove the item from localStorage
-                localStorage.removeItem(storagePrefix + id);
+                field.value = saved[id];
 
             });
 
@@ -145,12 +127,14 @@
             var id = getID(event.target);
             if (!id) return;
 
+            // Get existing data from localStorage
             var saved = localStorage.getItem(storageID);
             saved = saved ? JSON.parse(saved) : {};
 
+            // Add the field to the localStorage object
             saved[id] = event.target.value;
 
-            // Save the field to localStorage
+            // Save the object back to localStorage
             localStorage.setItem(storageID, JSON.stringify(saved));
 
         };
@@ -165,7 +149,7 @@
             if (event.target.id !== 'save-me') return;
 
             // Clear saved data
-            clearData();
+            localStorage.removeItem(storageID);
 
         };
 
