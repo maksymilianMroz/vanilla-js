@@ -28,6 +28,22 @@
 
         let storageID = 'pirateCache';
 
+        let renderNews = (data) => {
+            if (data.articles.length < 1) {
+                return;
+            }
+
+            app.innerHTML = data.articles.map((article) => {
+                let html =
+                    '<article>' +
+                    '<h2>' + article.title + '</h2>' +
+                    '<p><em>By ' + article.author + ' on ' + article.pubdate + '</em></p>' +
+                    article.article +
+                    '</article>';
+                return html;
+            }).join('') + '<p><em>Articles are from <a href="' + data.attribution.url + '">' + data.attribution.name + '</a></em></p>';
+        };
+
         let fetchArticles = () => {
             fetch('https://vanillajsacademy.com/api/pirates.json').then((response) => {
                 if (response.ok) {
@@ -36,11 +52,11 @@
                     return Promise.reject(response)
                 }
             }).then((data) => {
-                console.log(data);
+                renderNews(data);
             }).catch(() => {
                 console.log('nie wyszło')
             })
-        }
+        };
 
         fetchArticles();
 
