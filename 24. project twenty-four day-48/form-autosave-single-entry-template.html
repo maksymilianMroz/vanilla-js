@@ -58,7 +58,7 @@
         // Variables
         //
 
-        var storagePrefix = 'form-autosave';
+        var storageID = 'form-autosave';
 
 
         //
@@ -145,8 +145,13 @@
             var id = getID(event.target);
             if (!id) return;
 
+            var saved = localStorage.getItem(storageID);
+            saved = saved ? JSON.parse(saved) : {};
+
+            saved[id] = event.target.value;
+
             // Save the field to localStorage
-            localStorage.setItem(storagePrefix + id, event.target.value);
+            localStorage.setItem(storageID, JSON.stringify(saved));
 
         };
 
