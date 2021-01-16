@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>API Cache</title>
+
+    <style type="text/css">
+        body {
+            margin: 1em auto;
+            max-width: 40em;
+            width: 88%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>API Cache</h1>
+    <p><em><strong>The Scuttlebutt</strong>&mdash;the number one source for pirate news!</em></p>
+
+    <div id="app">
+        Loading...
+    </div>
+
+    <script>
+
+        let app = document.querySelector('#app');
+
+        let storageID = 'pirateCache';
+
+        let renderNoArticles = () => {
+            app.innerHTML = '<p>Articles? NOPE.</p>';
+        };
+
+        let renderNews = (data) => {
+            if (data.articles.length < 1) {
+                renderNoArticles();
+                return;
+            }
+
+            app.innerHTML = data.articles.map((article) => {
+                let html =
+                    '<article>' +
+                    '<h2>' + article.title + '</h2>' +
+                    '<p><em>By ' + article.author + ' on ' + article.pubdate + '</em></p>' +
+                    article.article +
+                    '</article>';
+                return html;
+            }).join('') + '<p><em>Articles are from <a href="' + data.attribution.url + '">' + data.attribution.name + '</a></em></p>';
+        };
+
+        isDataValid = (saved, goodFor) => {
+            if (!saved || !saved.data || !saved.timestamp) return false;
+
+            let difference = new Date().getTime() - saved.timestamp;
+
+            return difference < goodFor;
+        };
+
+        let saveData = (data) => {
+            let cache = {
+                data: data,
+                timestamp: new Date().getTime()
+            }
+
+            localStorage.setItem(storageID, JSON.stringify(cache));
+        };
+
+        let getData = () => {
+            let saved = localStorage.getItem(storageID);
+            if (!saved) return;
+            saved = JSON.parse(saved);
+
+            if (isDataValid(saved, 1000 * 3)) {
+                return saved.data;
+            }
+        };
+
+        let fetchArticles = () => {
+
+            let saved = getData();
+            if (saved) {
+                renderNews(saved);
+                console.log('Data from localStorage');
+                return;
+            }
+
+            fetch('https://vanillajsacademy.com/api/pirates.json').then((response) => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    return Promise.reject(response)
+                }
+            }).then((data) => {
+                renderNews(data);
+                saveData(data);
+                console.log('Data from API');
+            }).catch(() => {
+                renderNoArticles();
+                console.log('nie wyszło')
+            })
+        };
+
+        fetchArticles();
+
+
+    </script>
+</body>
+
+</html>
