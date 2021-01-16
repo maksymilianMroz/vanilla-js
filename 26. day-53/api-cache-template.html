@@ -49,7 +49,42 @@
             }).join('') + '<p><em>Articles are from <a href="' + data.attribution.url + '">' + data.attribution.name + '</a></em></p>';
         };
 
+        isDataValid = (saved, goodFor) => {
+            if (!saved || !saved.data || !saved.timestamp) return false;
+
+            let difference = new Date().getTime() - saved.timestamp;
+
+            return difference < goodFor;
+        };
+
+        let saveData = (data) => {
+            let cache = {
+                data: data,
+                timestamp: new Date().getTime()
+            }
+
+            localStorage.setItem(storageID, JSON.stringify(cache));
+        };
+
+        let getData = () => {
+            let saved = localStorage.getItem(storageID);
+            if (!saved) return;
+            saved = JSON.parse(saved);
+
+            if (isDataValid(saved, 1000 * 3)) {
+                return saved.data;
+            }
+        };
+
         let fetchArticles = () => {
+
+            let saved = getData();
+            if (saved) {
+                renderNews(saved);
+                console.log('Data from localStorage');
+                return;
+            }
+
             fetch('https://vanillajsacademy.com/api/pirates.json').then((response) => {
                 if (response.ok) {
                     return response.json();
@@ -58,6 +93,8 @@
                 }
             }).then((data) => {
                 renderNews(data);
+                saveData(data);
+                console.log('Data from API');
             }).catch(() => {
                 renderNoArticles();
                 console.log('nie wyszło')
