@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Timer</title>
+
+    <style type="text/css">
+        body {
+            margin: 1em auto;
+            max-width: 40em;
+            text-align: center;
+            width: 88%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Timer</h1>
+
+    <div id="app"></div>
+
+    <script>
+
+        let timer;
+
+        let Timer = function (selector, options) {
+            this.elem = document.querySelector(selector);
+            this.data = options.data;
+            this.template = options.template;
+        }
+
+        Timer.prototype.render = function () {
+            this.elem.innerHTML = this.template(this.data);
+        }
+
+        let stopTimer = () => {
+            if (app.data.timeStart > 0) return;
+            clearInterval(timer);
+        };
+
+        let countDown = (event) => {
+            app.data.timeStart--;
+            stopTimer();
+            app.render();
+        };
+
+        let startTimer = () => {
+            app.data.timeStart = 6;
+            app.render();
+            timer = setInterval(countDown, 1000);
+        };
+
+        let resetFn = () => {
+            if (!event.target.hasAttribute('data-restart-timer')) return;
+
+            startTimer();
+        };
+
+        let app = new Timer('#app', {
+            data: {
+                timeStart: 6,
+            },
+            template: function (props) {
+                let html = '<div>' +
+                    '<h2>' + props.timeStart + '</h2>'
+                    + '</div>';
+
+                if (props.timeStart < 1) {
+                    return '<p><button data-restart-timer>Restart Timer</button></p>'
+                }
+
+                return html;
+            }
+        });
+
+        startTimer();
+        document.addEventListener('click', resetFn);
+
+
+
+    </script>
+</body>
+
+</html>
