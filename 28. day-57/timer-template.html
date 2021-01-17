@@ -22,6 +22,8 @@
 
     <script>
 
+        let timer;
+
         let Timer = function (selector, options) {
             this.elem = document.querySelector(selector);
             this.data = options.data;
@@ -32,16 +34,48 @@
             this.elem.innerHTML = this.template(this.data);
         }
 
+        let stopTimer = () => {
+            if (app.data.timeStart > 0) return;
+            clearInterval(timer);
+        };
+
+        let countDown = (event) => {
+            app.data.timeStart--;
+            stopTimer();
+            app.render();
+        };
+
+        let startTimer = () => {
+            app.data.timeStart = 6;
+            app.render();
+            timer = setInterval(countDown, 1000);
+        };
+
+        let resetFn = () => {
+            if (!event.target.hasAttribute('data-restart-timer')) return;
+
+            startTimer();
+        };
 
         let app = new Timer('#app', {
             data: {
-                timeStart: 60,
+                timeStart: 6,
             },
             template: function (props) {
-                let html = '<ul>' + '</ul>';
+                let html = '<div>' +
+                    '<h2>' + props.timeStart + '</h2>'
+                    + '</div>';
+
+                if (props.timeStart < 1) {
+                    return '<p><button data-restart-timer>Restart Timer</button></p>'
+                }
+
                 return html;
             }
         });
+
+        startTimer();
+        document.addEventListener('click', resetFn);
 
 
 
