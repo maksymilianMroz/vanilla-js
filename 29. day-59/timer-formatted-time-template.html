@@ -34,7 +34,7 @@
         // Variables
         //
 
-        var duration = 120;
+        var duration = 12;
         var timer;
 
         //
@@ -52,11 +52,19 @@
             this.template = options.template;
         };
 
+
         /**
          * Render a new UI
          */
         Rue.prototype.render = function () {
             this.elem.innerHTML = this.template(this.data);
+        };
+
+        let countTime = function (props) {
+            let minutes = parseInt(props.time / 60, 10);
+            let secs = props.time % 60;
+
+            return minutes.toString() + ':' + secs.toString().padStart(2, '0');
         };
 
         /**
@@ -73,7 +81,7 @@
         var startTimer = function () {
 
             // Reset app data
-            app.data.time = duration;
+            app.data.time = duration
 
             // Render the initial UI
             app.render();
@@ -129,7 +137,7 @@
                 }
 
                 // Otherwise, show the current time
-                return props.time;
+                return countTime(props);
 
             }
         });
