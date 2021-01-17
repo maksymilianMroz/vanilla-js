@@ -21,7 +21,30 @@
     <div id="app"></div>
 
     <script>
-		// Your code goes here...
+
+        let Timer = function (selector, options) {
+            this.elem = document.querySelector(selector);
+            this.data = options.data;
+            this.template = options.template;
+        }
+
+        Timer.prototype.render = function () {
+            this.elem.innerHTML = this.template(this.data);
+        }
+
+
+        let app = new Timer('#app', {
+            data: {
+                timeStart: 60,
+            },
+            template: function (props) {
+                let html = '<ul>' + '</ul>';
+                return html;
+            }
+        });
+
+
+
     </script>
 </body>
 
