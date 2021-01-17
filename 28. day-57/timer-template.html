@@ -39,7 +39,7 @@
             clearInterval(timer);
         };
 
-        let countDown = (event) => {
+        let countDown = () => {
             app.data.timeStart--;
             stopTimer();
             app.render();
@@ -51,7 +51,7 @@
             timer = setInterval(countDown, 1000);
         };
 
-        let resetFn = () => {
+        let resetFn = (event) => {
             if (!event.target.hasAttribute('data-restart-timer')) return;
 
             startTimer();
