@@ -167,6 +167,8 @@
                 return;
             }
 
+            saved = JSON.parse(saved);
+
             renderNews(saved.data);
             console.log('If failure cache first');
         }
