@@ -158,6 +158,20 @@
 
         };
 
+
+        let renderIfFall = () => {
+            let saved = localStorage.getItem(storageID);
+
+            if (!saved) {
+                renderNoArticles();
+                return;
+            }
+
+            renderNews(saved.data);
+            console.log('If failure cache first');
+        }
+
+
         /**
          * Get articles from the cache if still valid, or from the API if not
          */
@@ -184,7 +198,7 @@
                 saveData(data);
                 console.log('Fetched from API');
             }).catch(function () {
-                renderNoArticles();
+                renderIfFall();
             });
 
         };
