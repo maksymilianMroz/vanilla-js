@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<title>What to read today</title>
 
@@ -15,6 +16,7 @@
 		}
 	</style>
 </head>
+
 <body>
 
 	<h1>What to read today</h1>
@@ -40,9 +42,9 @@
 			app.innerHTML = articles.map(function (article) {
 				var html =
 					'<article>' +
-						'<h2><a href="' + article.url + '">' + article.title + '</a></h2>' +
-						'<p>' + article.byline + '</p>' +
-						'<p>' + article.abstract + '</p>' +
+					'<h2><a href="' + article.url + '">' + article.title + '</a></h2>' +
+					'<p>' + article.byline + '</p>' +
+					'<p>' + article.abstract + '</p>' +
 					'</article>';
 				return html;
 			}).join('');
@@ -66,4 +68,5 @@
 		});
 	</script>
 </body>
+
 </html>
